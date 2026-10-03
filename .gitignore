@@ -1,0 +1,20 @@
+# Raw MEG recordings: ~300 MB of .fif per site, kept out of git on purpose.
+# The dataset.json manifests beside them ARE tracked -- they are what makes a
+# dataset reproducible. See README.
+data/**/*.fif
+
+# Generated outputs
+reports/*.html
+reports/_metrics_cache.pkl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store

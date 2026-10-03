@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meg-gamepad-artifact-test"
+version = "0.1.0"
+description = "Quantify MEG artifacts introduced by an MR/MEG-compatible gamepad"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "mne>=1.6",
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+]
+
+[project.scripts]
+meg-gamepad = "meg_gamepad.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

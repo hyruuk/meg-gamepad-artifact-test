@@ -1,0 +1,15 @@
+{
+  "site": "tomov_mgh",
+  "description": "Tomov site, MGH. MEGIN TRIUX, 102 magnetometers and 204 planar gradiometers, 1 kHz, 0.1-330 Hz hardware band. One participant, four 1-minute runs, recorded 2026-10-02.",
+  "runs": {
+    "baseline": "baseline_gamepad_off_raw.fif",
+    "passive": "passive_gamepad_on_not_moving.fif",
+    "playing": "playing_gamepad_on_buttons_pressed_raw.fif",
+    "motion": "motion_gamepad_on_moving_close_to_face_Raw.fif"
+  },
+  "button_codes": {
+    "playing": [512, 2048],
+    "motion": [2048]
+  },
+  "_help": "runs maps each condition to a file name in this directory. button_codes gives the STI101 bit values each button raises at this site; omit a key to use the design default. Add line_freq to override the mains frequency recorded in the file headers."
+}
