@@ -5,6 +5,7 @@ data/**/*.fif
 
 # Generated outputs
 reports/*.html
+reports/*.pdf
 reports/_metrics_cache.pkl
 
 # Python

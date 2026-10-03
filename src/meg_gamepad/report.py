@@ -1020,6 +1020,44 @@ footer{color:var(--muted);font-size:.82rem;text-align:center;padding:10px 0 0}
   .measures li{grid-template-columns:1fr auto}
   .measures .pill{grid-column:2}
 }
+
+/* Print / PDF. The same document, paginated: keep every figure, table row and
+   verdict card whole, repeat table headers across pages, and never leave a
+   heading stranded at the foot of a page. */
+@page{size:A4;margin:14mm}
+@media print{
+  :root{--page:#fff}
+  html,body{background:#fff}
+  body{font-size:10.5pt;line-height:1.5;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  section{border-radius:0;border:none;border-top:1px solid var(--grid);
+    padding:14px 0 6px;margin-bottom:0;break-inside:auto}
+  section#summary{border-top:none}
+  h1{font-size:19pt}
+  h2{font-size:13pt;margin-top:4px}
+  h3{font-size:11pt}
+  h2,h3{break-after:avoid;break-inside:avoid}
+  p,li{orphans:3;widows:3}
+  figure{break-inside:avoid;margin:12px 0}
+  figure img{max-height:205mm;object-fit:contain}
+  /* One card per row: at page width the three-column measure rows would
+     otherwise wrap every label onto three lines. */
+  .cards{grid-template-columns:1fr;gap:8px}
+  .card{break-inside:avoid}
+  nav.toc{border-radius:0;break-inside:avoid;margin-bottom:6px}
+  .tablewrap{overflow:visible;break-inside:auto}
+  table{font-size:8.5pt}
+  thead{display:table-header-group}
+  thead th{position:static}
+  tr{break-inside:avoid}
+  .callout{break-inside:avoid}
+  details{break-inside:avoid}
+  details summary{display:none}
+  details[open] .tablewrap,details .tablewrap{display:block}
+  a{color:inherit;text-decoration:none}
+  footer{border-top:1px solid var(--grid);padding-top:8px;margin-top:12px}
+}
 """
 
 TOC = [

@@ -10,6 +10,7 @@ from pathlib import Path
 from .analysis import compute_all
 from .config import CACHE_PATH, DATA_ROOT, DEFAULT_SITE, REPORT_DIR
 from .dataset import DatasetError, load_dataset, write_template
+from .pdf import PdfError, html_to_pdf
 from .report import write_report
 
 
@@ -54,6 +55,12 @@ def main(argv: list[str] | None = None) -> int:
             "off on larger datasets or when iterating on the report text alone"
         ),
     )
+    ap.add_argument(
+        "--no-pdf",
+        dest="pdf",
+        action="store_false",
+        help="skip the PDF export and write only the HTML report",
+    )
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args(argv)
 
@@ -89,6 +96,14 @@ def main(argv: list[str] | None = None) -> int:
     results = compute_all(dataset, cache=cache)
     path = write_report(results, out)
     print(f"\nReport written to {path}")
+
+    if args.pdf:
+        try:
+            print(f"PDF written to    {html_to_pdf(path)}")
+        except PdfError as exc:
+            # A missing renderer must not lose the analysis that just ran.
+            print(f"\nPDF export skipped: {exc}", file=sys.stderr)
+
     for key, v in results.verdicts.items():
         print(f"  {key:9s} -> {v['overall']}")
     return 0

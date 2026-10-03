@@ -82,8 +82,19 @@ from the body movement that carries it.
 ```bash
 pip install -e .            # or: pip install mne numpy scipy matplotlib
 python scripts/run_analysis.py          # or: meg-gamepad
-open reports/tomov_mgh.html
+open reports/tomov_mgh.html             # and reports/tomov_mgh.pdf
 ```
+
+Each run writes the report twice: `reports/<site>.html`, which is
+self-contained and needs no other files, and `reports/<site>.pdf` for
+circulation and archiving. The PDF is the same document paginated for A4, with
+figures, tables and verdict cards kept whole and table headers repeated across
+pages.
+
+The PDF step drives whichever renderer the machine has — Chrome or Chromium
+first, then weasyprint or wkhtmltopdf. If none is installed the analysis still
+completes and writes the HTML, and prints what to install. Pass `--no-pdf` to
+skip the step.
 
 A full run takes about half a minute. `python scripts/run_analysis.py --help`
 lists the options; `--cache` stores intermediate metrics, which is only worth it
@@ -160,6 +171,7 @@ than risk mislabelling a condition and inverting the conclusions.
 data/<site>/    recordings (gitignored) + dataset.json (tracked)
 src/meg_gamepad/
   config.py     conditions, bands, thresholds, palette -- all tunables live here
+  pdf.py        HTML -> PDF via whichever renderer is installed
   dataset.py    per-site manifest: file names, trigger codes, mains frequency
   loading.py    reading .fif, cropping to a common window, decoding button events
   metrics.py    spectra, band powers, line detection, amplitude, rejection
